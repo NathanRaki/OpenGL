@@ -1,30 +1,30 @@
 ﻿#pragma once
 
 #include <string>
-#include <vector>
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "camera.h"
 
-class Game
+class game
 {
 public:
 
     // Camera
+    camera* currentCamera;
 
     // Shaders
 
-    // Window informations
-    unsigned screenWidth, screenHeight;
-    double lastX, lastY;
-    bool firstMouse;
+    // Window information
+    unsigned screen_width, screen_height;
+    double last_x, last_y;
+    bool first_mouse;
     
 
     // Path Variables
     std::string texturesPath;
 
     // Methods
-    Game(unsigned width, unsigned height, std::string tPath);
-    GLFWwindow* Initialize();
+    game(unsigned width, unsigned height, std::string tPath);
+    GLFWwindow* initialize();
 };
 
 // glfw: callback functions

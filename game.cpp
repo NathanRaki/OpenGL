@@ -3,19 +3,19 @@
 #include <filesystem>
 #include <iostream>
 
-Game::Game(unsigned width, unsigned height, std::string tPath)
+game::game(unsigned width, unsigned height, std::string tPath)
 {
-    this->screenWidth = width;
-    this->screenHeight = height;
+    this->screen_width = width;
+    this->screen_height = height;
 
     this->texturesPath = std::filesystem::current_path().generic_string();
 
-    this->lastX = width / 2.0f;
-    this->lastY = height / 2.0f;
-    this->firstMouse = true;
+    this->last_x = width / 2.0f;
+    this->last_y = height / 2.0f;
+    this->first_mouse = true;
 }
 
-GLFWwindow* Game::Initialize()
+GLFWwindow* game::initialize()
 {
     // glfw: initialize and configure
     // ------------------------------
@@ -26,7 +26,7 @@ GLFWwindow* Game::Initialize()
 
     // glfw: window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "OpenGL", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(screen_width, screen_height, "OpenGL", nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window." << std::endl;
@@ -65,17 +65,17 @@ GLFWwindow* Game::Initialize()
 // -------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
+    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
     glViewport(0, 0, width, height);
-    game->screenWidth = width;
-    game->screenHeight = height;
+    game->screen_width = width;
+    game->screen_height = height;
 }
 
 // glfw: called when simple press
 // ------------------------------
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
+    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
 
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
 }
@@ -84,24 +84,24 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // ------------------------------
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
+    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
 
-    if (game->firstMouse)
+    if (game->first_mouse)
     {
-        game->lastX = xpos;
-        game->lastY = ypos;
-        game->firstMouse = false;
+        game->last_x = xpos;
+        game->last_y = ypos;
+        game->first_mouse = false;
     }
 
-    double xoffset = xpos - game->lastX;
-    double yoffset = game->lastY - ypos;
-    game->lastX = xpos;
-    game->lastY = ypos;
+    double xoffset = xpos - game->last_x;
+    double yoffset = game->last_y - ypos;
+    game->last_x = xpos;
+    game->last_y = ypos;
 }
 
 // glfw:: called when scrolling mouse wheel
 // ----------------------------------------
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
+    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
 }
