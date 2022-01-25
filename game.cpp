@@ -8,7 +8,8 @@ game::game(unsigned width, unsigned height, std::string tPath)
     this->screen_width = width;
     this->screen_height = height;
 
-    this->texturesPath = std::filesystem::current_path().generic_string();
+    this->textures_path = std::filesystem::current_path().generic_string() + "/data/textures/";
+    this->shaders_path = std::filesystem::current_path().generic_string() + "/data/shaders/";
 
     this->last_x = width / 2.0f;
     this->last_y = height / 2.0f;
@@ -55,6 +56,10 @@ GLFWwindow* game::initialize()
 
     // build and compile shader programs
     // ---------------------------------
+    texture_shader = new shader((shaders_path + "textureShader.vs").c_str(), (shaders_path + "textureShader.fs").c_str());
+    material_shader = new shader((shaders_path + "materialShader.vs").c_str(), (shaders_path + "materialShader.fs").c_str());
+    light_source_shader = new shader((shaders_path + "lightSourceShader.vs").c_str(), (shaders_path + "lightSourceShader.fs").c_str());
+    skybox_shader = new shader((shaders_path + "skyboxShader.vs").c_str(), (shaders_path + "skyboxShader.fs").c_str());
 
     glfwSetWindowUserPointer(window, this);
 
@@ -65,43 +70,49 @@ GLFWwindow* game::initialize()
 // -------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
+    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
     glViewport(0, 0, width, height);
-    game->screen_width = width;
-    game->screen_height = height;
+    game_instance->screen_width = width;
+    game_instance->screen_height = height;
 }
 
 // glfw: called when simple press
 // ------------------------------
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
-
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
+    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    camera* currentCamera = game_instance->currentCamera;
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { currentCamera->position += currentCamera->front * 0.1f; }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { currentCamera->position += currentCamera->right * -0.1f; }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { currentCamera->position += currentCamera->front * -0.1f; }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { currentCamera->position += currentCamera->right * 0.1f; }
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) { currentCamera->position += currentCamera->up * 0.1f; }
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) { currentCamera->position += currentCamera->up * -0.1f; }
 }
 
 // glfw:: called when mouse moves
 // ------------------------------
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
+    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
 
-    if (game->first_mouse)
+    if (game_instance->first_mouse)
     {
-        game->last_x = xpos;
-        game->last_y = ypos;
-        game->first_mouse = false;
+        game_instance->last_x = xpos;
+        game_instance->last_y = ypos;
+        game_instance->first_mouse = false;
     }
 
-    double xoffset = xpos - game->last_x;
-    double yoffset = game->last_y - ypos;
-    game->last_x = xpos;
-    game->last_y = ypos;
+    double xoffset = xpos - game_instance->last_x;
+    double yoffset = game_instance->last_y - ypos;
+    game_instance->last_x = xpos;
+    game_instance->last_y = ypos;
 }
 
 // glfw:: called when scrolling mouse wheel
 // ----------------------------------------
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    game* game = static_cast<game*>(glfwGetWindowUserPointer(window));
+    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
 }

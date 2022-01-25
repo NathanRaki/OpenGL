@@ -1,5 +1,5 @@
-﻿#include "camera.h"
-#include "game.h"
+﻿#include "game.h"
+#include "camera.h"
 
 camera::camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 {
@@ -21,12 +21,7 @@ glm::mat4 const camera::GetViewMatrix()
 void camera::inputCallback(GLFWwindow* window)
 {
     game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { position += front * 0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { position += right * -0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { position += front * -0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { position += right * 0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) { position += up * 0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) { position += up * -0.1f; }
+    
 }
 
 void camera::processMouseMovement(float xoffset, float yoffset, bool contrainPitch)

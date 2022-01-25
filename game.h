@@ -1,8 +1,10 @@
 ﻿#pragma once
 
+#include <glad/glad.h>
 #include <string>
 #include <GLFW/glfw3.h>
 #include "camera.h"
+#include "shader.h"
 
 class game
 {
@@ -12,6 +14,10 @@ public:
     camera* currentCamera;
 
     // Shaders
+    shader* texture_shader;
+    shader* material_shader;
+    shader* light_source_shader;
+    shader* skybox_shader;
 
     // Window information
     unsigned screen_width, screen_height;
@@ -20,7 +26,8 @@ public:
     
 
     // Path Variables
-    std::string texturesPath;
+    std::string textures_path;
+    std::string shaders_path;
 
     // Methods
     game(unsigned width, unsigned height, std::string tPath);
