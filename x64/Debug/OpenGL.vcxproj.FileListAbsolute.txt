@@ -1,0 +1,2 @@
+C:\Users\natha\RiderProjects\OpenGL\x64\Debug\OpenGL.exe
+C:\Users\natha\Desktop\Repositories\OpenGL\x64\Debug\OpenGL.exe
