@@ -4,6 +4,7 @@
 camera::camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 {
     this->position = position;
+    this->world_up = up;
     this->front = glm::vec3(0.0f, 0.0f, -1.0f);
     this->yaw = yaw;
     this->pitch = pitch;
@@ -53,8 +54,8 @@ void camera::updateCameraVectors()
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    
     this->front = glm::normalize(front);
+
     this->right = glm::normalize(glm::cross(this->front, this->world_up));
     this->up = glm::normalize(glm::cross(this->right, this->front));
 }

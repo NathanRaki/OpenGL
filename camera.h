@@ -28,7 +28,7 @@ public:
 
     glm::mat4 const GetViewMatrix();
     void inputCallback(GLFWwindow* window);
-    void processMouseMovement(float xoffset, float yoffset, bool contrainPitch);
+    void processMouseMovement(float xoffset, float yoffset, bool contrainPitch = true);
     void processMouseScroll(float yoffset);
 
 private:

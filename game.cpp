@@ -82,13 +82,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
     game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
     camera* currentCamera = game_instance->currentCamera;
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { currentCamera->position += currentCamera->front * 0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { currentCamera->position += currentCamera->right * -0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { currentCamera->position += currentCamera->front * -0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { currentCamera->position += currentCamera->right * 0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) { currentCamera->position += currentCamera->up * 0.1f; }
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) { currentCamera->position += currentCamera->up * -0.1f; }
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
+    if (key == GLFW_KEY_W && action == GLFW_PRESS) { currentCamera->position += currentCamera->front * 0.1f; }
+    if (key == GLFW_KEY_A && action == GLFW_PRESS) { currentCamera->position += currentCamera->right * -0.1f; }
+    if (key == GLFW_KEY_S && action == GLFW_PRESS) { currentCamera->position += currentCamera->front * -0.1f; }
+    if (key == GLFW_KEY_D && action == GLFW_PRESS) { currentCamera->position += currentCamera->right * 0.1f; }
+    if (key == GLFW_KEY_R && action == GLFW_PRESS) { currentCamera->position += currentCamera->up * 0.1f; }
+    if (key == GLFW_KEY_F && action == GLFW_PRESS) { currentCamera->position += currentCamera->up * -0.1f; }
 }
 
 // glfw:: called when mouse moves
@@ -108,6 +108,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     double yoffset = game_instance->last_y - ypos;
     game_instance->last_x = xpos;
     game_instance->last_y = ypos;
+    game_instance->currentCamera->processMouseMovement(xoffset, yoffset);
 }
 
 // glfw:: called when scrolling mouse wheel
@@ -115,4 +116,5 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    game_instance->currentCamera->processMouseScroll(yoffset);
 }
