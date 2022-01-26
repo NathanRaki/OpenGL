@@ -17,6 +17,13 @@ game::game(unsigned width, unsigned height, std::string tPath)
 
     deltaTime = 0.0f;
     lastFrame = 0.0f;
+
+    light_data.index = 0;
+    light_data.position = glm::vec3(0.0f);
+    light_data.color = glm::vec3(1.0f);
+    light_data.diffuse = light_data.color * glm::vec3(0.8f);
+    light_data.ambient = light_data.diffuse * glm::vec3(0.2f);
+    light_data.specular = glm::vec3(1.0f);
 }
 
 GLFWwindow* game::initialize()
@@ -64,10 +71,25 @@ GLFWwindow* game::initialize()
     light_source_shader = new shader((shaders_path + "lightSourceShader.vs").c_str(), (shaders_path + "lightSourceShader.fs").c_str());
     skybox_shader = new shader((shaders_path + "skyboxShader.vs").c_str(), (shaders_path + "skyboxShader.fs").c_str());
 
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    (void)io;
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 130");
+
     glfwSetWindowUserPointer(window, this);
 
     return window;
 }
+
+void game::Terminate()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
 
 void game::CalculateDeltaTime()
 {
@@ -75,6 +97,31 @@ void game::CalculateDeltaTime()
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 }
+
+void game::switchLight()
+{
+    light_data.index = (light_data.index + 1) % 3;
+    lightSource->textures = std::vector<Texture>{light_textures[light_data.index]};
+    switch(light_data.index)
+    {
+    case 0:
+        light_data.color = glm::vec3(1.0f);
+        light_data.diffuse = light_data.color * glm::vec3(0.8f);
+        light_data.ambient = light_data.diffuse * glm::vec3(0.2f);
+        break;
+    case 1:
+        light_data.color = glm::vec3(0.87f, 0.27f, 0.23f);
+        light_data.diffuse = light_data.color * glm::vec3(0.8f);
+        light_data.ambient = light_data.diffuse * glm::vec3(0.2f);
+        break;
+    case 2:
+        light_data.color = glm::vec3(0.23f, 0.87f, 0.41f);
+        light_data.diffuse = light_data.color * glm::vec3(0.8f);
+        light_data.ambient = light_data.diffuse * glm::vec3(0.2f);
+        break;
+    }
+}
+
 
 // glfw: called when window size changes
 // -------------------------------------
@@ -91,6 +138,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
+    
+    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    if (key == GLFW_KEY_N && action == GLFW_PRESS) { game_instance->switchLight(); }
 }
 
 // glfw:: called when mouse moves

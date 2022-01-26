@@ -30,6 +30,7 @@ public:
     void handleInput(GLFWwindow* window, double deltaTime);
     void processMouseMovement(float xoffset, float yoffset, bool contrainPitch = true);
     void processMouseScroll(float yoffset);
+    void gui(GLFWwindow* window);
 
 private:
     void updateCameraVectors();

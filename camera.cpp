@@ -64,5 +64,33 @@ void camera::updateCameraVectors()
     this->up = glm::normalize(glm::cross(this->right, this->front));
 }
 
+void camera::gui(GLFWwindow* window)
+{
+    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    ImGui::SetNextWindowPos(ImVec2(game_instance->screen_width/100.0f*90.0f, game_instance->screen_height/100.0f*20.0f), ImGuiCond_Always, ImVec2(0.5, 0.5));
+    
+    ImGuiWindowFlags window_flags = 0;
+    window_flags |= ImGuiWindowFlags_NoTitleBar;
+    window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
+    ImGui::Begin("Inputs", 0, window_flags);
+	
+    ImGui::Text("Inputs: ");
+    ImGui::Text("\tZ: Move Forward");
+    ImGui::Text("\tS: Move Backward");
+    ImGui::Text("\tQ: Move Left");
+    ImGui::Text("\tD: Move Right");
+    ImGui::Text("\tR: Move Up");
+    ImGui::Text("\tF: Move Down");
+    ImGui::Text("\n");
+    ImGui::Text("\tMouse movement: Rotate");
+    ImGui::Text("\tMouse scroll: Zoom");
+    ImGui::Text("\tN: Switch light color");
+    ImGui::Text("\tCurrent color: %i", game_instance->light_data.index);
+    ImGui::Text("\n");
+    ImGui::Text("\tECHAP: Exit game");
+
+    ImGui::End();
+}
+
 
 

@@ -3,8 +3,23 @@
 #include <glad/glad.h>
 #include <string>
 #include <GLFW/glfw3.h>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
 #include "camera.h"
 #include "shader.h"
+#include "sphere.h"
+
+struct lightData
+{
+    unsigned int index;
+    glm::vec3 position;
+    glm::vec3 color;
+    glm::vec3 ambient;
+    glm::vec3 diffuse;
+    glm::vec3 specular;
+    Texture texture;
+};
 
 class game
 {
@@ -31,11 +46,16 @@ public:
     // Game data
     double deltaTime;
     double lastFrame;
+    sphere* lightSource;
+    lightData light_data;
+    std::vector<Texture> light_textures;
     
     // Methods
     game(unsigned width, unsigned height, std::string tPath);
     GLFWwindow* initialize();
+    void Terminate();
     void CalculateDeltaTime();
+    void switchLight();
 };
 
 // glfw: callback functions
