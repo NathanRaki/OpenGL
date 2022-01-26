@@ -5,7 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // Default values
-const float YAW			= 0.0f;
+const float YAW			= -90.0f;
 const float PITCH		= 0.0f;
 const float SPEED		= 2.5f;
 const float SENSITIVITY = 0.1f;
@@ -27,7 +27,7 @@ public:
             float pitch = PITCH);
 
     glm::mat4 const GetViewMatrix();
-    void inputCallback(GLFWwindow* window);
+    void handleInput(GLFWwindow* window, double deltaTime);
     void processMouseMovement(float xoffset, float yoffset, bool contrainPitch = true);
     void processMouseScroll(float yoffset);
 

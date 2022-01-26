@@ -14,6 +14,9 @@ game::game(unsigned width, unsigned height, std::string tPath)
     this->last_x = width / 2.0f;
     this->last_y = height / 2.0f;
     this->first_mouse = true;
+
+    deltaTime = 0.0f;
+    lastFrame = 0.0f;
 }
 
 GLFWwindow* game::initialize()
@@ -66,6 +69,13 @@ GLFWwindow* game::initialize()
     return window;
 }
 
+void game::CalculateDeltaTime()
+{
+    double currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+}
+
 // glfw: called when window size changes
 // -------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -80,15 +90,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 // ------------------------------
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
-    camera* currentCamera = game_instance->currentCamera;
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
-    if (key == GLFW_KEY_W && action == GLFW_PRESS) { currentCamera->position += currentCamera->front * 0.1f; }
-    if (key == GLFW_KEY_A && action == GLFW_PRESS) { currentCamera->position += currentCamera->right * -0.1f; }
-    if (key == GLFW_KEY_S && action == GLFW_PRESS) { currentCamera->position += currentCamera->front * -0.1f; }
-    if (key == GLFW_KEY_D && action == GLFW_PRESS) { currentCamera->position += currentCamera->right * 0.1f; }
-    if (key == GLFW_KEY_R && action == GLFW_PRESS) { currentCamera->position += currentCamera->up * 0.1f; }
-    if (key == GLFW_KEY_F && action == GLFW_PRESS) { currentCamera->position += currentCamera->up * -0.1f; }
 }
 
 // glfw:: called when mouse moves

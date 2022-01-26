@@ -5,7 +5,7 @@ camera::camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 {
     this->position = position;
     this->world_up = up;
-    this->front = glm::vec3(0.0f, 0.0f, -1.0f);
+    this->front = glm::vec3(0.0f, 0.0f, 1.0f);
     this->yaw = yaw;
     this->pitch = pitch;
     this->zoom = ZOOM;
@@ -19,10 +19,14 @@ glm::mat4 const camera::GetViewMatrix()
     return glm::lookAt(position, position + front, up);
 }
 
-void camera::inputCallback(GLFWwindow* window)
+void camera::handleInput(GLFWwindow* window, double deltaTime)
 {
-    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
-    
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { position += front * (float)deltaTime; }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { position += right * -(float)deltaTime; }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { position += front * -(float)deltaTime; }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { position += right * (float)deltaTime; }
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) { position += up * (float)deltaTime; }
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) { position += up * -(float)deltaTime; }
 }
 
 void camera::processMouseMovement(float xoffset, float yoffset, bool contrainPitch)

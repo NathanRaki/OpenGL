@@ -24,14 +24,18 @@ public:
     double last_x, last_y;
     bool first_mouse;
     
-
     // Path Variables
     std::string textures_path;
     std::string shaders_path;
 
+    // Game data
+    double deltaTime;
+    double lastFrame;
+    
     // Methods
     game(unsigned width, unsigned height, std::string tPath);
     GLFWwindow* initialize();
+    void CalculateDeltaTime();
 };
 
 // glfw: callback functions
