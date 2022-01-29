@@ -31,10 +31,6 @@ int main(int argc, char* argv[])
     tCube.id = TextureFromFile("square.png", game.textures_path);
     tCube.type = "texture_diffuse";
     tCube.path = "square.png";
-    Texture ruby;
-    ruby.id = TextureFromFile("ruby.png", game.textures_path);
-    ruby.type = "texture_diffuse";
-    ruby.path = "ruby.png";
     
     Texture white;
     white.id = TextureFromFile("white.png", game.textures_path);
@@ -56,8 +52,6 @@ int main(int argc, char* argv[])
     skyboxTextures.push_back(tSkybox);
     std::vector<Texture> cubeTextures;
     cubeTextures.push_back(tCube);
-    std::vector<Texture> rubyTextures;
-    rubyTextures.push_back(ruby);
     
     cube skyboxMesh(skyboxTextures);
 
@@ -73,17 +67,17 @@ int main(int argc, char* argv[])
     chrome.diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
     chrome.specular = glm::vec3(0.774597f, 0.774597f, 0.774597f);
     chrome.shininess = 76.8f;
-    Material rubyMaterial;
-    rubyMaterial.untextured = true;
-    rubyMaterial.ambient = glm::vec3(0.1745f, 0.01175f, 0.01175f);
-    rubyMaterial.diffuse = glm::vec3(0.61424f, 0.04136f, 0.04136f);
-    rubyMaterial.specular = glm::vec3(0.727811f, 0.626959f, 0.626959f);
-    rubyMaterial.shininess = 76.8;
+    Material ruby;
+    ruby.untextured = true;
+    ruby.ambient = glm::vec3(0.1745f, 0.01175f, 0.01175f);
+    ruby.diffuse = glm::vec3(0.61424f, 0.04136f, 0.04136f);
+    ruby.specular = glm::vec3(0.727811f, 0.626959f, 0.626959f);
+    ruby.shininess = 76.8;
 
     // creating objects
     // ----------------
     cube* myCube = new cube(cubeTextures);
-    sphere* mySphere = new sphere(50, 50, rubyMaterial);
+    sphere* mySphere = new sphere(50, 50, ruby);
     sphere* mySphere2 = new sphere(50, 50, chrome);
     game.lightSource = new sphere(50, 50, std::vector<Texture>{game.light_textures[0]});
 
@@ -103,7 +97,7 @@ int main(int argc, char* argv[])
 
         // our projection matrix is made using perspective, with the current camera and screen dimensions
         // the last two values are respectively the minimum distance view and the maximum
-        glm::mat4 projection = glm::perspective(glm::radians(game.currentCamera->zoom), (float)game.screen_width / (float)game.screen_height, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(game.currentCamera->zoom), static_cast<float>(game.screen_width) / static_cast<float>(game.screen_height), 0.1f, 100.0f);
         // asking our camera to return the view matrix
         glm::mat4 view = game.currentCamera->GetViewMatrix();
 
@@ -115,7 +109,7 @@ int main(int argc, char* argv[])
 
         // draw light sources here
         // -----------------------
-        game.lightSource->Draw(game.light_source_shader, game.light_data.position);
+        game.lightSource->Draw(game.light_source_shader, game.light_data.position, glm::vec3(0.2f, 0.2f, 0.2f));
 
         // configuring texture shader
         // --------------------------
