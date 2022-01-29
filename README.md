@@ -1,5 +1,7 @@
 # OpenGL Scene
-
+<style type="text/css" rel="stylesheet">
+* { line-height: 13px; }
+</style>
 ## C++ classes
 
 - ### Game
@@ -36,7 +38,9 @@
 
 ## Scene
 
-<img src="data/screenshots/preview.png" alt="Scene Preview" width="80%">
+<p align="center">
+    <img src="data/screenshots/preview.png" alt="Scene Preview" width="45%">
+</p>
 
 Both red and grey spheres have a material and are drawn with the *material shader*. <br>
 The cube has a texture stored in data/textures and is drawn with the *texture shader*. <br>
