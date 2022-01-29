@@ -1,7 +1,5 @@
 # OpenGL Scene
-<style type="text/css" rel="stylesheet">
-* { line-height: 13px; }
-</style>
+
 ## C++ classes
 
 - ### Game
