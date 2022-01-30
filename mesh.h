@@ -5,7 +5,7 @@
 #include <vector>
 #include "shader.h"
 
-struct Vertex
+struct vertex
 {
     glm::vec3 position;
     glm::vec3 normal;
@@ -14,14 +14,14 @@ struct Vertex
     glm::vec3 bitangent;
 };
 
-struct Texture
+struct texture
 {
     unsigned int id;
     std::string type;
     std::string path;
 };
 
-struct Material
+struct material
 {
     bool untextured = false;
     glm::vec3 ambient;
@@ -30,26 +30,26 @@ struct Material
     float shininess;
 };
 
-unsigned int TextureFromFile(const char* path, const std::string &directory, bool gamma = false);
+unsigned int texture_from_file(const char* path, const std::string &directory, bool gamma = false);
 unsigned int LoadCubemap(std::vector<std::string> faces, const std::string &directory);
 
 class mesh
 {
 public:
-    std::vector<Vertex> vertices;
+    std::vector<vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
-    Material material;
+    std::vector<texture> textures;
+    material mat;
 
-    unsigned int VAO;
+    unsigned int vao;
 
     mesh();
-    mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, Material material);
+    mesh(std::vector<vertex> vertices, std::vector<unsigned int> indices, std::vector<texture> textures);
+    mesh(std::vector<vertex> vertices, std::vector<unsigned int> indices, material mat);
 
-    void Draw(shader* shader, glm::vec3 position = glm::vec3(0.0f), glm::vec3 scale = glm::vec3(1.0f), glm::vec3 rotation = glm::vec3(0.0f));
-    void SetupMesh();
+    void draw(shader* shader, glm::vec3 position = glm::vec3(0.0f), glm::vec3 scale = glm::vec3(1.0f), glm::vec3 rotation = glm::vec3(0.0f)) const;
+    void setup_mesh();
     
 private:
-    unsigned int VBO, EBO;
+    unsigned int vbo_, ebo_;
 };

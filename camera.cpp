@@ -11,48 +11,48 @@ camera::camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     this->zoom = ZOOM;
     this->movement_speed = SPEED;
     this->mouse_sensitivity = SENSITIVITY;
-    updateCameraVectors();
+    update_camera_vectors();
 }
 
-glm::mat4 const camera::GetViewMatrix()
+glm::mat4 camera::get_view_matrix() const
 {
     return glm::lookAt(position, position + front, up);
 }
 
-void camera::handleInput(GLFWwindow* window, double deltaTime)
+void camera::handle_input(GLFWwindow* window, const double delta_time)
 {
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { position += front * (float)deltaTime; }
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { position += right * -(float)deltaTime; }
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { position += front * -(float)deltaTime; }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { position += right * (float)deltaTime; }
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) { position += up * (float)deltaTime; }
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) { position += up * -(float)deltaTime; }
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { position += front * static_cast<float>(delta_time); }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { position += right * -static_cast<float>(delta_time); }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { position += front * -static_cast<float>(delta_time); }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { position += right * static_cast<float>(delta_time); }
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) { position += up * static_cast<float>(delta_time); }
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) { position += up * -static_cast<float>(delta_time); }
 }
 
-void camera::processMouseMovement(float xoffset, float yoffset, bool contrainPitch)
+void camera::processMouseMovement(float x_offset, float y_offset, const bool constrain_pitch)
 {
-    xoffset *= mouse_sensitivity;
-    yoffset *= mouse_sensitivity;
+    x_offset *= mouse_sensitivity;
+    y_offset *= mouse_sensitivity;
 
-    yaw += xoffset;
-    pitch += yoffset;
+    yaw += x_offset;
+    pitch += y_offset;
 
-    if (contrainPitch)
+    if (constrain_pitch)
     {
         if (pitch > 89.0f) { pitch = 89.0f; }
         else if (pitch < -89.0f) { pitch = -89.0f; }
     }
-    updateCameraVectors();
+    update_camera_vectors();
 }
 
-void camera::processMouseScroll(float yoffset)
+void camera::process_mouse_scroll(float y_offset)
 {
     if (zoom < 1.0f) { zoom = 1.0f; }
     else if (zoom > 45.0f) { zoom = 45.0f; }
-    else { zoom -= yoffset; }
+    else { zoom -= y_offset; }
 }
 
-void camera::updateCameraVectors()
+void camera::update_camera_vectors()
 {
     glm::vec3 front;
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -66,13 +66,13 @@ void camera::updateCameraVectors()
 
 void camera::gui(GLFWwindow* window)
 {
-    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    const game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
     ImGui::SetNextWindowPos(ImVec2(game_instance->screen_width/100.0f*90.0f, game_instance->screen_height/100.0f*20.0f), ImGuiCond_Always, ImVec2(0.5, 0.5));
     
     ImGuiWindowFlags window_flags = 0;
     window_flags |= ImGuiWindowFlags_NoTitleBar;
     window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
-    ImGui::Begin("Inputs", 0, window_flags);
+    ImGui::Begin("Inputs", nullptr, window_flags);
 	
     ImGui::Text("Inputs: ");
     ImGui::Text("\tZ: Move Forward");
@@ -87,7 +87,7 @@ void camera::gui(GLFWwindow* window)
     ImGui::Text("\tN: Switch light color");
     ImGui::Text("\tCurrent color: %i", game_instance->light_data.index);
     ImGui::Text("\n");
-    ImGui::Text("\tECHAP: Exit game");
+    ImGui::Text("\tEscape: Exit game");
 
     ImGui::End();
 }

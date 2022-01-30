@@ -3,7 +3,13 @@
 #include <filesystem>
 #include <iostream>
 
-game::game(unsigned width, unsigned height, std::string tPath)
+game::game(unsigned width, unsigned height, std::string tPath):
+    currentCamera(nullptr),
+    texture_shader(nullptr),
+    material_shader(nullptr),
+    light_source_shader(nullptr),
+    skybox_shader(nullptr),
+    lightSource(nullptr)
 {
     this->screen_width = width;
     this->screen_height = height;
@@ -72,7 +78,7 @@ GLFWwindow* game::initialize()
     skybox_shader = new shader((shaders_path + "skyboxShader.vs").c_str(), (shaders_path + "skyboxShader.fs").c_str());
 
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
+    const ImGuiIO& io = ImGui::GetIO();
     (void)io;
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -83,7 +89,7 @@ GLFWwindow* game::initialize()
     return window;
 }
 
-void game::Terminate()
+void game::terminate()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -91,17 +97,17 @@ void game::Terminate()
 }
 
 
-void game::CalculateDeltaTime()
+void game::calculate_delta_time()
 {
-    double currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
+    const double current_frame = glfwGetTime();
+    deltaTime = current_frame - lastFrame;
+    lastFrame = current_frame;
 }
 
-void game::switchLight()
+void game::switch_light()
 {
     light_data.index = (light_data.index + 1) % 3;
-    lightSource->textures = std::vector<Texture>{light_textures[light_data.index]};
+    lightSource->textures = std::vector<texture>{light_textures[light_data.index]};
     switch(light_data.index)
     {
     case 0:
@@ -119,6 +125,8 @@ void game::switchLight()
         light_data.diffuse = light_data.color * glm::vec3(0.8f);
         light_data.ambient = light_data.diffuse * glm::vec3(0.2f);
         break;
+    default:
+        break;
     }
 }
 
@@ -127,7 +135,7 @@ void game::switchLight()
 // -------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    const auto game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
     glViewport(0, 0, width, height);
     game_instance->screen_width = width;
     game_instance->screen_height = height;
@@ -138,35 +146,35 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) { glfwSetWindowShouldClose(window, true); }
-    
-    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
-    if (key == GLFW_KEY_N && action == GLFW_PRESS) { game_instance->switchLight(); }
+
+    const auto game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    if (key == GLFW_KEY_N && action == GLFW_PRESS) { game_instance->switch_light(); }
 }
 
 // glfw:: called when mouse moves
 // ------------------------------
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+void mouse_callback(GLFWwindow* window, const double x_pos, const double y_pos)
 {
-    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    const auto game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
 
     if (game_instance->first_mouse)
     {
-        game_instance->last_x = xpos;
-        game_instance->last_y = ypos;
+        game_instance->last_x = x_pos;
+        game_instance->last_y = y_pos;
         game_instance->first_mouse = false;
     }
 
-    double xoffset = xpos - game_instance->last_x;
-    double yoffset = game_instance->last_y - ypos;
-    game_instance->last_x = xpos;
-    game_instance->last_y = ypos;
-    game_instance->currentCamera->processMouseMovement(xoffset, yoffset);
+    const double x_offset = x_pos - game_instance->last_x;
+    const double y_offset = game_instance->last_y - y_pos;
+    game_instance->last_x = x_pos;
+    game_instance->last_y = y_pos;
+    game_instance->currentCamera->processMouseMovement(x_offset, y_offset);
 }
 
 // glfw:: called when scrolling mouse wheel
 // ----------------------------------------
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void scroll_callback(GLFWwindow* window, double x_offset, const double y_offset)
 {
-    game* game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
-    game_instance->currentCamera->processMouseScroll(yoffset);
+    const auto game_instance = static_cast<game*>(glfwGetWindowUserPointer(window));
+    game_instance->currentCamera->process_mouse_scroll(y_offset);
 }

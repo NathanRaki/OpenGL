@@ -26,12 +26,12 @@ public:
             float yaw = YAW,
             float pitch = PITCH);
 
-    glm::mat4 const GetViewMatrix();
-    void handleInput(GLFWwindow* window, double deltaTime);
-    void processMouseMovement(float xoffset, float yoffset, bool contrainPitch = true);
-    void processMouseScroll(float yoffset);
-    void gui(GLFWwindow* window);
+    glm::mat4 get_view_matrix() const;
+    void handle_input(GLFWwindow* window, double delta_time);
+    void processMouseMovement(float x_offset, float y_offset, bool constrain_pitch = true);
+    void process_mouse_scroll(float y_offset);
+    static void gui(GLFWwindow* window);
 
 private:
-    void updateCameraVectors();
+    void update_camera_vectors();
 };

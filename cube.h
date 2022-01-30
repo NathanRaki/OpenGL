@@ -5,6 +5,6 @@
 class cube : public mesh
 {
 public:
-    cube(std::vector<Texture> textures);
-    cube(Material material);
+    explicit cube(std::vector<texture> textures);
+    explicit cube(material mat);
 };

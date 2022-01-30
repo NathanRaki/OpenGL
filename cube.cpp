@@ -1,116 +1,116 @@
 ﻿#include "cube.h"
 
-cube::cube(std::vector<Texture> textures)
+cube::cube(std::vector<texture> textures)
 {
-    Vertex vertex;
+    vertex vertex;
 
 	// Front Face
 	vertex.position = glm::vec3(-0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 0
+	this->vertices.push_back(vertex); // index 0
 	vertex.position = glm::vec3(0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 1
+	this->vertices.push_back(vertex); // index 1
 	vertex.position = glm::vec3(0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 2
+	this->vertices.push_back(vertex); // index 2
 	vertex.position = glm::vec3(-0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 3
+	this->vertices.push_back(vertex); // index 3
 
 	// Back Face
 	vertex.position = glm::vec3(0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 4
+	this->vertices.push_back(vertex); // index 4
 	vertex.position = glm::vec3(-0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 5
+	this->vertices.push_back(vertex); // index 5
 	vertex.position = glm::vec3(-0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 6
+	this->vertices.push_back(vertex); // index 6
 	vertex.position = glm::vec3(0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 7
+	this->vertices.push_back(vertex); // index 7
 
 	// Left Face
 	vertex.position = glm::vec3(-0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 8
+	this->vertices.push_back(vertex); // index 8
 	vertex.position = glm::vec3(-0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 9
+	this->vertices.push_back(vertex); // index 9
 	vertex.position = glm::vec3(-0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 10
+	this->vertices.push_back(vertex); // index 10
 	vertex.position = glm::vec3(-0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 11
+	this->vertices.push_back(vertex); // index 11
 
 	// Right Face
 	vertex.position = glm::vec3(0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 12
+	this->vertices.push_back(vertex); // index 12
 	vertex.position = glm::vec3(0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 13
+	this->vertices.push_back(vertex); // index 13
 	vertex.position = glm::vec3(0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 14
+	this->vertices.push_back(vertex); // index 14
 	vertex.position = glm::vec3(0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 15
+	this->vertices.push_back(vertex); // index 15
 
 	// Bottom Face
 	vertex.position = glm::vec3(-0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 16
+	this->vertices.push_back(vertex); // index 16
 	vertex.position = glm::vec3(0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 17
+	this->vertices.push_back(vertex); // index 17
 	vertex.position = glm::vec3(0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 18
+	this->vertices.push_back(vertex); // index 18
 	vertex.position = glm::vec3(-0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 19
+	this->vertices.push_back(vertex); // index 19
 
 	// Top Face
 	vertex.position = glm::vec3(-0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 20
+	this->vertices.push_back(vertex); // index 20
 	vertex.position = glm::vec3(0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 21
+	this->vertices.push_back(vertex); // index 21
 	vertex.position = glm::vec3(0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 22
+	this->vertices.push_back(vertex); // index 22
 	vertex.position = glm::vec3(-0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 23
+	this->vertices.push_back(vertex); // index 23
 
 	unsigned int ind[] = {	0, 1, 2, 0, 2, 3,
 							4, 5, 6, 4, 6, 7,
@@ -123,120 +123,120 @@ cube::cube(std::vector<Texture> textures)
 
 	this->textures = textures;
 
-	SetupMesh();
+	setup_mesh();
 }
 
-cube::cube(Material material)
+cube::cube(material mat)
 {
-	Vertex vertex;
+	vertex vertex;
 
 	// Front Face
 	vertex.position = glm::vec3(-0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 0
+	this->vertices.push_back(vertex); // index 0
 	vertex.position = glm::vec3(0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 1
+	this->vertices.push_back(vertex); // index 1
 	vertex.position = glm::vec3(0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 2
+	this->vertices.push_back(vertex); // index 2
 	vertex.position = glm::vec3(-0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, -1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 3
+	this->vertices.push_back(vertex); // index 3
 
 	// Back Face
 	vertex.position = glm::vec3(0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 4
+	this->vertices.push_back(vertex); // index 4
 	vertex.position = glm::vec3(-0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 5
+	this->vertices.push_back(vertex); // index 5
 	vertex.position = glm::vec3(-0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 6
+	this->vertices.push_back(vertex); // index 6
 	vertex.position = glm::vec3(0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 0.0f, 1.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 7
+	this->vertices.push_back(vertex); // index 7
 
 	// Left Face
 	vertex.position = glm::vec3(-0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 8
+	this->vertices.push_back(vertex); // index 8
 	vertex.position = glm::vec3(-0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 9
+	this->vertices.push_back(vertex); // index 9
 	vertex.position = glm::vec3(-0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 10
+	this->vertices.push_back(vertex); // index 10
 	vertex.position = glm::vec3(-0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( -1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 11
+	this->vertices.push_back(vertex); // index 11
 
 	// Right Face
 	vertex.position = glm::vec3(0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 12
+	this->vertices.push_back(vertex); // index 12
 	vertex.position = glm::vec3(0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 13
+	this->vertices.push_back(vertex); // index 13
 	vertex.position = glm::vec3(0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 14
+	this->vertices.push_back(vertex); // index 14
 	vertex.position = glm::vec3(0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 1.0f, 0.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 15
+	this->vertices.push_back(vertex); // index 15
 
 	// Bottom Face
 	vertex.position = glm::vec3(-0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 16
+	this->vertices.push_back(vertex); // index 16
 	vertex.position = glm::vec3(0.5f, -0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 17
+	this->vertices.push_back(vertex); // index 17
 	vertex.position = glm::vec3(0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 18
+	this->vertices.push_back(vertex); // index 18
 	vertex.position = glm::vec3(-0.5f, -0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, -1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 19
+	this->vertices.push_back(vertex); // index 19
 
 	// Top Face
 	vertex.position = glm::vec3(-0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 20
+	this->vertices.push_back(vertex); // index 20
 	vertex.position = glm::vec3(0.5f, 0.5f, 0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 0.0f);
-	this->vertices.push_back(vertex); // indice 21
+	this->vertices.push_back(vertex); // index 21
 	vertex.position = glm::vec3(0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(1.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 22
+	this->vertices.push_back(vertex); // index 22
 	vertex.position = glm::vec3(-0.5f, 0.5f, -0.5f);
 	vertex.normal = glm::vec3( 0.0f, 1.0f, 0.0f);
 	vertex.tex_coords = glm::vec2(0.0f, 1.0f);
-	this->vertices.push_back(vertex); // indice 23
+	this->vertices.push_back(vertex); // index 23
 
 	unsigned int ind[] = {	0, 1, 2, 0, 2, 3,
 							4, 5, 6, 4, 6, 7,
@@ -244,11 +244,11 @@ cube::cube(Material material)
 							12, 13, 14, 12, 14, 15,
 							16, 17, 18, 16, 18, 19,
 							20, 21, 22, 20, 22, 23	};
-	std::vector<unsigned int> vInd(ind, ind+36);
-	this->indices = vInd;
+	std::vector<unsigned int> v_ind(ind, ind+36);
+	this->indices = v_ind;
 
-	this->material = material;
+	this->mat = mat;
 
-	SetupMesh();
+	setup_mesh();
 }
 

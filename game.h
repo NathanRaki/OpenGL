@@ -18,7 +18,7 @@ struct lightData
     glm::vec3 ambient;
     glm::vec3 diffuse;
     glm::vec3 specular;
-    Texture texture;
+    texture texture;
 };
 
 class game
@@ -48,19 +48,19 @@ public:
     double lastFrame;
     sphere* lightSource;
     lightData light_data;
-    std::vector<Texture> light_textures;
+    std::vector<texture> light_textures;
     
     // Methods
     game(unsigned width, unsigned height, std::string tPath);
     GLFWwindow* initialize();
-    void Terminate();
-    void CalculateDeltaTime();
-    void switchLight();
+    static void terminate();
+    void calculate_delta_time();
+    void switch_light();
 };
 
 // glfw: callback functions
 // ------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void mouse_callback(GLFWwindow* window, double x_pos, double y_pos);
+void scroll_callback(GLFWwindow* window, double x_offset, double y_offset);
